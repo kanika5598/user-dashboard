@@ -1,0 +1,32 @@
+# Node.js Modules
+/node_modules
+
+# Environment Variables
+.env*
+
+# Build Artifacts
+/build
+/dist
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and OS generated files
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+.idea/
+.vscode/
+
+# Backend specific
+backend/node_modules
+backend/.env.development
+backend/logs
+
+# Frontend specific
+frontend-ui/node_modules
+frontend-ui/.env.local
