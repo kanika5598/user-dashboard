@@ -17,8 +17,8 @@ The Next.js frontend interacts with the Node.js backend API to perform these ope
 
 The project has the following directory structure:
 
-user-dashboard/
-├── backend/ # Node.js backend application
+user-dashboard/        
+├── backend/ # Node.js backend application    
 └── frontend-ui/ # Next.js frontend application
 
 ## Prerequisites
@@ -29,11 +29,10 @@ user-dashboard/
 ## Getting Started
 
 ### Clone the repository
-
-    ```bash
-    git clone <repository-url>
-    cd user-dashboard
-    ```
+```
+git clone <repository-url>
+cd user-dashboard
+```
 
 ### Backend setup and running
 
