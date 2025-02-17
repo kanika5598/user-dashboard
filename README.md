@@ -86,15 +86,15 @@ This is the easiest way to get the application running.
     ```
 
     *   **`db` service:**  Change `your_db_root_password`, `your_database_name`, and `your_db_root_user`  to your desired MySQL root credentials and database name. These are the credentials the MySQL server inside the container will use.
-    *   **`backend` service:** Change `your_db_user`, `your_db_password`, and `your_database_name`.  These are the credentials the *backend application* uses to connect to the MySQL database. **Important:** `DB_HOST` should be `db`. This is the name Docker uses to resolve the `db` service. The backend uses this to connect to the database container.
-    *   **Important DB_Host:**  Note the line `DB_HOST: db`.  This is critical for Docker to resolve the database container's address.  Do *not* use `localhost` or `127.0.0.1` here.
+    *   **`backend` service:** Change `your_db_user`, `your_db_password`, and `your_database_name`.  These are the credentials the *backend application* uses to connect to the MySQL database.
+    *   **Important DB_Host:**  Note the line `DB_HOST: db`.  DB_HOST should be **db**. This is critical for Docker to resolve the database container's address.  Do *not* use `localhost` or `127.0.0.1` here.
 
-3.  **Run Docker Compose:** Navigate to the root directory of the `docker-compose.yml` file (which should be in the `user-dashboard` directory) and run the following command:
+3.  **Run Docker Compose:** Navigate to the root directory of the `docker-compose.yml` file and run the following command:
 
     ```bash
     docker-compose up --build
     ```
-    This command will build the Docker images and start the containers defined in the `docker-compose.yml` file.
+    This command will build the Docker images and start the containers.
 
 4.  **Access the application:** Once the containers are running, you can access the application by launching the following URL in your web browser:
 
