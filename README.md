@@ -53,7 +53,7 @@ This is the easiest way to get the application running.
         restart: always
         environment:
           MYSQL_ROOT_PASSWORD: your_db_root_password  # **MODIFY THIS**
-          MYSQL_DATABASE: your_database_name      # **MODIFY THIS**
+          MYSQL_DATABASE: userapp
           MYSQL_ROOT_USER: your_db_root_user           # **MODIFY THIS**
         ports:
           - "3306:3306"  # Expose for external access (optional, usually only for debugging)
@@ -76,7 +76,7 @@ This is the easiest way to get the application running.
           DB_PORT: 3306
           DB_USER: your_db_user      # **MODIFY THIS** Use the MySQL user or root user
           DB_PASSWORD: your_db_password # **MODIFY THIS** Use the MySQL password or root password
-          DB_NAME: your_database_name    # **MODIFY THIS** Use the MySQL database name
+          DB_NAME: userapp    # Use the MySQL database name
 
     volumes:
       db_data:
@@ -85,8 +85,8 @@ This is the easiest way to get the application running.
       fullstack-network:
     ```
 
-    *   **`db` service:**  Change `your_db_root_password`, `your_database_name`, and `your_db_root_user`  to your desired MySQL root credentials and database name. These are the credentials the MySQL server inside the container will use.
-    *   **`backend` service:** Change `your_db_user`, `your_db_password`, and `your_database_name`.  These are the credentials the *backend application* uses to connect to the MySQL database.
+    *   **`db` service:**  Change `your_db_root_password` and `your_db_root_user`  to your desired MySQL root credentials. These are the credentials the MySQL server inside the container will use.
+    *   **`backend` service:** Change `your_db_user` and `your_db_password`.  These are the credentials the *backend application* uses to connect to the MySQL database.
     *   **Important DB_Host:**  Note the line `DB_HOST: db`.  DB_HOST should be **db**. This is critical for Docker to resolve the database container's address.  Do *not* use `localhost` or `127.0.0.1` here.
 
 3.  **Run Docker Compose:** Navigate to the root directory of the `docker-compose.yml` file and run the following command:
