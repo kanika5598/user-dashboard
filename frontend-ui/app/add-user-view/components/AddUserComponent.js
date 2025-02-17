@@ -243,7 +243,7 @@ const AddUserComponent = ({ userData, userId, editError }) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
-                  className={`mt-1 w-full bg-gray-50 border-gray-300 shadow-sm md:text-sm px-2 py-1${
+                  className={`mt-1 w-full bg-gray-50 border-gray-300 shadow-sm md:text-sm px-2 py-1 ${
                     errors.email && touched.email ? "border-red-500" : ""
                   }`}
                 />
@@ -290,7 +290,7 @@ const AddUserComponent = ({ userData, userId, editError }) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
-                  className={`mt-1 w-full bg-gray-50 border-gray-300 shadow-sm md:text-sm px-2 py-1${
+                  className={`mt-1 w-full bg-gray-50 border-gray-300 shadow-sm md:text-sm px-2 py-1 ${
                     errors.mobile && touched.mobile ? "border-red-500" : ""
                   }`}
                 />

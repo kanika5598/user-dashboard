@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+require('dotenv').config;
 
 async function getUserById(id) {
   try {
-    const apiUrl = `http://localhost:4000/users/${id}`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {

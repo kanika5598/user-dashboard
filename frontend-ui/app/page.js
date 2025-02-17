@@ -1,8 +1,9 @@
 import UserDashboard from "./components/UserDashboard";
+import { headers } from "next/headers";
 
-const getAllUsers = async () => {
+const getAllUsers = async (httpValue, host) => {
   try {
-    const apiUrl = "http://localhost:3000/api/getUsers";
+    const apiUrl = `${httpValue}://${host}/api/getUsers`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
@@ -17,8 +18,12 @@ const getAllUsers = async () => {
 export default async function Home() {
   let userData = null;
   let error = null;
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const httpValue = process.env.httpValue;
+
   try {
-    userData = await getAllUsers();
+    userData = await getAllUsers(httpValue, host);
   } catch (err) {
     error = err.message;
   }

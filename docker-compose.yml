@@ -1,0 +1,60 @@
+
+version: "3.8"
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: userapp
+      MYSQL_ROOT_USER: root
+    ports:
+      - "3306:3306"  # Expose for external access (optional, usually only for debugging)
+    expose:
+      - 3306
+    volumes:
+      - db_data:/var/lib/mysql  # Persist data
+    networks:
+      - fullstack-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: development
+      DB_HOST: db         # Important:  Use the service name
+      DB_PORT: 3306
+      DB_USER: root      # Use the MySQL user
+      DB_PASSWORD: root123 # Use the MySQL password
+      DB_NAME: userapp    # Use the MySQL database name
+    volumes:
+      - ./backend:/app   # Mount the backend directory
+      - /app/node_modules # Anonymous volume for node_modules (see explanation)
+    depends_on:
+      - db            # Ensure MySQL starts first
+    networks:
+      - fullstack-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend-ui/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend      # Ensure backend starts first
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: http://backend:4000  # Use backend service name
+      httpValue: http
+    networks:
+      - fullstack-network
+
+networks:
+  fullstack-network:
+    driver: bridge
+
+volumes:
+  db_data:  # Declare the volume

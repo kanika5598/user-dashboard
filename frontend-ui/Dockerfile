@@ -4,13 +4,13 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY frontend-ui/package*.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the application code into the container
-COPY . .
+COPY frontend-ui/ ./
 
 # Build the Next.js application
 RUN npm run build
@@ -22,15 +22,16 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 
 # Copy only the necessary files, nextjs by default creates a standalone folder with all the production ready files.
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.mjs ./
+
+# Install only production dependencies
+RUN npm install
 
 # Expose the port the app listens on
 EXPOSE 3000
-
-# Define environment variables
-ENV NODE_ENV production
 
 # Start the app
 CMD [ "npm", "run", "start" ]

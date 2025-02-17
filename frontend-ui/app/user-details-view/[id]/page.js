@@ -1,10 +1,9 @@
-const {
-  default: UserDetailsComponent,
-} = require("../components/UserDetailsComponent");
+import UserDetailsComponent from "../components/UserDetailsComponent";
+import { headers } from "next/headers";
 
-const getUserById = async (id) => {
+const getUserById = async (httpValue, host, id) => {
   try {
-    const apiUrl = `http://localhost:3000/api/user-details/${id}`;
+    const apiUrl = `${httpValue}://${host}/api/user-details/${id}`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
@@ -21,10 +20,13 @@ const getUserById = async (id) => {
 export default async function UserDetailsView({ params }) {
   let userData = null;
   let error = null;
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const httpValue = process.env.httpValue;
   try {
     const responseParams = await params;
     const { id } = responseParams;
-    userData = await getUserById(id);
+    userData = await getUserById(httpValue, host, id);
   } catch (err) {
     error = err.message;
   }

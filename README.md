@@ -23,6 +23,7 @@ user-dashboard/
 
 ## Prerequisites
 
+*   Docker installed. You can download it from [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 *   Node.js (version >= 16) and npm installed. You can download them from [nodejs.org](https://nodejs.org/).
 *   MySQL server installed and running.
 
@@ -33,6 +34,24 @@ user-dashboard/
 git clone <repository-url>
 cd user-dashboard
 ```
+
+### Option 1: Docker Setup (Recommended)
+This is the easiest way to get the application running.
+
+1. **Install Docker:** Follow the instructions on [Docker Desktop](https://www.docker.com/products/docker-desktop/) to install Docker on your system.
+
+2.  **Run Docker Compose:** Navigate to the root directory of the `docker-compose.yml` file (which should be in the `user-dashboard` directory) and run the following command:
+
+    ```bash
+    docker-compose up --build
+    ```
+    This command will build the Docker images and start the containers defined in the `docker-compose.yml` file.
+
+3.  **Access the application:** Once the containers are running, you can access the application by launching the following URL in your web browser:
+
+    ```
+    http://localhost:4000
+    ```
 
 ### Backend setup and running
 
@@ -96,13 +115,22 @@ cd user-dashboard
     npm install
     ```
 
-3.  **Start the development server:**
+3.  **Create .env file and add below configs:**
+
+    Create a `.env` file in the root directory and add the following configurations:
+
+    ```
+    NEXT_PUBLIC_BACKEND_URL: http://backend:4000  # Or the port you specified in the `.env.development` file in backend
+    httpValue: http
+    ```
+
+4.  **Start the development server:**
 
     ```bash
     npm run dev
     ```
 
-    The application will be available at `http://localhost:3000`. Open with your browser to see the results.
+    The application will typically run on `http://localhost:3000` (or the available port specified in the terminal). Open with your browser to see the results.
 
 ## Learn More
 

@@ -1,8 +1,9 @@
 import AddUserComponent from "../components/AddUserComponent";
+import { headers } from "next/headers";
 
-const getUserDetailsById = async (id) => {
+const getUserDetailsById = async (httpValue, host, id) => {
   try {
-    const apiUrl = `http://localhost:3000/api/user-details/${id}`;
+    const apiUrl = `${httpValue}://${host}/api/user-details/${id}`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
@@ -19,10 +20,13 @@ const getUserDetailsById = async (id) => {
 export default async function EditUserView({ params }) {
   let userData = null;
   let error = null;
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const httpValue = process.env.httpValue;
   try {
     const responseParams = await params;
     const { id } = responseParams;
-    userData = await getUserDetailsById(id);
+    userData = await getUserDetailsById(httpValue, host, id);
   } catch (err) {
     error = err.message;
   }
