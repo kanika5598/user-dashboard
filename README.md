@@ -102,7 +102,9 @@ This is the easiest way to get the application running.
     http://localhost:4000
     ```
 
-### Backend setup and running
+### Option 2: Local Setup
+*   ### Backend setup and running
+      Follow the below instructions for backend local setup:
 
 1.  **Navigate to the backend directory:**
 
@@ -150,7 +152,8 @@ This is the easiest way to get the application running.
     ```
     This will start the backend server. The server will typically run on `http://localhost:4000` (or the port you specified in the `.env.development` file).
 
-### Frontend Setup and Running
+*   ### Frontend Setup and Running
+      Follow the below instructions for frontend local setup:
 
 1.  **Navigate to the frontend directory:**
 
