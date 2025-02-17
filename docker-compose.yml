@@ -5,9 +5,9 @@ services:
     image: mysql:8.0
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: userapp
-      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: your_db_root_password
+      MYSQL_DATABASE: your_database_name
+      MYSQL_ROOT_USER: your_db_root_user
     ports:
       - "3306:3306"  # Expose for external access (optional, usually only for debugging)
     expose:
@@ -27,9 +27,9 @@ services:
       NODE_ENV: development
       DB_HOST: db         # Important:  Use the service name
       DB_PORT: 3306
-      DB_USER: root      # Use the MySQL user
-      DB_PASSWORD: root123 # Use the MySQL password
-      DB_NAME: userapp    # Use the MySQL database name
+      DB_USER: your_db_user      # Use the MySQL user or root user
+      DB_PASSWORD: your_db_password # Use the MySQL password or root user password
+      DB_NAME: your_database_name    # Use the MySQL database name
     volumes:
       - ./backend:/app   # Mount the backend directory
       - /app/node_modules # Anonymous volume for node_modules (see explanation)

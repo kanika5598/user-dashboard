@@ -40,14 +40,63 @@ This is the easiest way to get the application running.
 
 1. **Install Docker:** Follow the instructions on [Docker Desktop](https://www.docker.com/products/docker-desktop/) to install Docker on your system.
 
-2.  **Run Docker Compose:** Navigate to the root directory of the `docker-compose.yml` file (which should be in the `user-dashboard` directory) and run the following command:
+2.  **Modify `docker-compose.yml`:** Open the `docker-compose.yml` file in the root of the `user-dashboard` directory.  Locate the `db` and `backend` services and update the environment variables with your desired database credentials.
+
+    **Example `docker-compose.yml` (snippet - please adapt to your complete file!):**
+
+    ```yaml
+    version: "3.8"
+
+    services:
+      db:
+        image: mysql:8.0
+        restart: always
+        environment:
+          MYSQL_ROOT_PASSWORD: your_db_root_password  # **MODIFY THIS**
+          MYSQL_DATABASE: your_database_name      # **MODIFY THIS**
+          MYSQL_ROOT_USER: your_db_root_user           # **MODIFY THIS**
+        ports:
+          - "3306:3306"  # Expose for external access (optional, usually only for debugging)
+        expose:
+          - 3306
+        volumes:
+          - db_data:/var/lib/mysql  # Persist data
+        networks:
+          - fullstack-network
+
+      backend:
+        build:
+          context: .
+          dockerfile: backend/Dockerfile
+        ports:
+          - "4000:4000"
+        environment:
+          NODE_ENV: development
+          DB_HOST: db         # Important:  Use the service name 'db'
+          DB_PORT: 3306
+          DB_USER: your_db_user      # **MODIFY THIS** Use the MySQL user or root user
+          DB_PASSWORD: your_db_password # **MODIFY THIS** Use the MySQL password or root password
+          DB_NAME: your_database_name    # **MODIFY THIS** Use the MySQL database name
+
+    volumes:
+      db_data:
+
+    networks:
+      fullstack-network:
+    ```
+
+    *   **`db` service:**  Change `your_db_root_password`, `your_database_name`, and `your_db_root_user`  to your desired MySQL root credentials and database name. These are the credentials the MySQL server inside the container will use.
+    *   **`backend` service:** Change `your_db_user`, `your_db_password`, and `your_database_name`.  These are the credentials the *backend application* uses to connect to the MySQL database. **Important:** `DB_HOST` should be `db`. This is the name Docker uses to resolve the `db` service. The backend uses this to connect to the database container.
+    *   **Important DB_Host:**  Note the line `DB_HOST: db`.  This is critical for Docker to resolve the database container's address.  Do *not* use `localhost` or `127.0.0.1` here.
+
+3.  **Run Docker Compose:** Navigate to the root directory of the `docker-compose.yml` file (which should be in the `user-dashboard` directory) and run the following command:
 
     ```bash
     docker-compose up --build
     ```
     This command will build the Docker images and start the containers defined in the `docker-compose.yml` file.
 
-3.  **Access the application:** Once the containers are running, you can access the application by launching the following URL in your web browser:
+4.  **Access the application:** Once the containers are running, you can access the application by launching the following URL in your web browser:
 
     ```
     http://localhost:4000
