@@ -172,7 +172,7 @@ This is the easiest way to get the application running.
     Create a `.env` file in the root directory and add the following configurations:
 
     ```
-    NEXT_PUBLIC_BACKEND_URL: http://backend:4000  # Or the port you specified in the `.env.development` file in backend
+    NEXT_PUBLIC_BACKEND_URL: http://localhost:4000  # Or the port you specified in the `.env.development` file in backend
     httpValue: http
     ```
 
